@@ -1,0 +1,14 @@
+desc:Pocram Tempo Link
+About:
+	# About
+	*Tempo Link* is a simple JSFX that offers a hidden one-way “Tempo” slider to link to.
+Link: https://github.com/Pocram93/JSFX
+Version: 1.0
+Author: Marco Picker
+Changelog:
+	Initial release.
+
+slider1:tempo_slider=0<1,999,1>-Tempo
+
+@block
+tempo_slider = tempo;

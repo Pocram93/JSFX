@@ -1,0 +1,114 @@
+desc:Pocram Parameter Remap
+About:
+	# About
+	*Parameter Remap* is a JSFX that lets you remap a linked paramater to a different value.
+Link: https://github.com/Pocram93/JSFX
+Version: 0.9
+Author: Marco Picker
+Changelog:
+	Initial release.
+
+slider1:input=0<-9999,9999,0.01>Input
+slider2:output=0<0,1,0.01>-Output
+
+slider4:input_min=0<-9999,9999,0.01>Input Min
+slider5:input_max=1<-9999,9999,0.01>Input Max
+
+slider6:output_min=0<-9999,9999,0.01>Output Min
+slider7:output_max=1<-9999,9999,0.01>Output Max
+
+slider9:interpolation=0<0,4,1{Linear, Exponential, Logarithmic, Eased, Square>Interpolation Mode
+slider10:exponent=2<1,10,0.1>Exponent
+slider11:square_threshold=0<0,1>Threshold
+
+
+@init
+// "Enums"
+mode_linear = 0;
+mode_exponential = 1;
+mode_logarithmic = 2;
+mode_bezier = 3;
+mode_square = 4;
+
+function lerp(a, b, t)
+(
+  a + (b - a) * t;
+);
+
+function inverse_lerp(a, b, v)
+(
+  (v - a) / (b - a);
+);
+
+function clamp(value, min_value, max_value)
+(
+  value > max_value ? max_value :
+  value < min_value ? min_value :
+  value;
+);
+
+function calculate_unmapped_output_value(t_value)
+(
+  interpolation == mode_linear ? t_value :
+  interpolation == mode_exponential ? t_value ^ exponent :
+  interpolation == mode_logarithmic ? t_value ^ (1 / exponent) :
+  interpolation == mode_bezier ? t_value * t_value * (3 - 2 * t_value) :
+  interpolation == mode_square ? t_value >= square_threshold ;
+);
+
+@slider
+show_exponent = interpolation == mode_exponential || interpolation == mode_logarithmic;
+slider_show(exponent, show_exponent);
+slider_show(square_threshold, interpolation == mode_square);
+
+
+@block
+input_t = inverse_lerp(input_min, input_max, input);
+t = clamp(input_t, 0, 1);
+
+// Account for floating point errors.
+t <= 0.01 ? t = 0;
+t >= 0.99 ? t = 1;
+
+unmapped_output = calculate_unmapped_output_value(t);
+output = lerp(output_min, output_max, unmapped_output);
+
+@gfx
+gfx_clear=0;
+
+// General values.
+current_t = inverse_lerp(input_min, input_max, input);
+current_t = clamp(current_t, 0, 1);
+current_output = calculate_unmapped_output_value(current_t);
+current_x = gfx_w * t;
+current_y = gfx_h - gfx_h * current_output;
+
+// Draw crosshair.
+gfx_a = 0.25;
+gfx_r = 1; gfx_g = 1; gfx_b = 0;
+
+gfx_line(current_x, gfx_h, current_x, 0);
+gfx_line(0, current_y, gfx_w, current_y);
+
+// Draw curve.
+gfx_x = 0;
+gfx_y = gfx_h;
+
+gfx_r = 1; gfx_g = 1; gfx_b = 1; gfx_a = 1;
+
+graph_resolution = 256;
+graph_i = 0;
+loop(graph_resolution,
+  graph_t = (graph_i + 1) / graph_resolution;
+  
+  graph_x = graph_t;
+  graph_y = calculate_unmapped_output_value(graph_x);
+   
+  gfx_lineto(graph_x * gfx_w, gfx_h - (graph_y * gfx_h));
+  
+  graph_i += 1;
+);
+
+// Draw playhead.
+gfx_r = 1; gfx_g = 1; gfx_b = 0; gfx_a = 1;
+gfx_circle(current_x, current_y, 2, 1);

@@ -1,0 +1,473 @@
+desc:Pocram Drum Pad Mapper
+About:
+  # About
+  *Drum Pad Mapper* is a JSFX plugin that lets the user remap der drum pads in an intuitive and playful way via a graphical user interface.
+  
+  # Manual
+  ## Sliders
+  ### Drum Pad Midi Channel
+  This slider specifies the drum pad’s MIDI channel. Set this to the output channel of your drum pad.
+  
+  ### Set Output Midi Channel
+  This slider specifies which channel/s to listen to when setting any pad’s “OUT” value.
+  
+  ### Unmapped Pad Behaviour
+  This sliders specifies whether to allow unmapped MIDI notes to pass through or not.
+  
+  ### Pad Count
+  This slider specifies how many pads there are on your physical drum pad.
+  
+  ### Pads Per Row
+  This slider specifies how many pads to display per row. This assumes a rectangular pad arrangement.
+  
+  ## Registering a pad
+  In order to register a pad’s input note (for example the top left-hand-side pad) simply `right-click` it with your mouse. This arms the pad for selection. You can now trigger the respective physical drum pad that the virtual one should represent (in our example, the top left-hand-side one).
+  `Right-click` the pad again to disarm the pad without changing anything.
+  
+  After registering all pads, you may want to save the layout as a preset in REAPER.
+  
+  ## Mapping a pad to a note
+  The process of mapping a pad to a note is similar to registering a pad. `Left-click` the desired pad with your mouse to arm it and then press the respective key on your MIDI device.
+  `Left-click` the pad again to disarm the pad without changing anything.
+  
+  ## Removing a mapping
+  In order to remove a mapping, simply hold `Ctrl` on *Windows* or `Cmd` on *OSX* use either the `left-` or `right mouse-button` to un-map or unregister a pad.
+Link: https://github.com/Pocram93/JSFX
+Version: 1.0
+Author: Marco Picker
+Changelog:
+	Initial release.
+
+slider1:pad_midi_channel=0<0,16,1{All,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}>Drum Pad Midi Channel
+slider2:set_out_midi_channel=0<0,16,1{All,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}>Set Output Midi Channel
+
+slider4:pad_1_midi_in=-1<-1,127,1>-Pad 1 MIDI In
+slider5:pad_1_midi_out=-1<-1,127,1>-Pad 1 MIDI Out
+slider6:pad_2_midi_in=-1<-1,127,1>-Pad 2 MIDI In
+slider7:pad_2_midi_out=-1<-1,127,1>-Pad 2 MIDI Out
+slider8:pad_3_midi_in=-1<-1,127,1>-Pad 3 MIDI In
+slider9:pad_3_midi_out=-1<-1,127,1>-Pad 3 MIDI Out
+slider10:pad_4_midi_in=-1<-1,127,1>-Pad 4 MIDI In
+slider11:pad_4_midi_out=-1<-1,127,1>-Pad 4 MIDI Out
+slider12:pad_5_midi_in=-1<-1,127,1>-Pad 5 MIDI In
+slider13:pad_5_midi_out=-1<-1,127,1>-Pad 5 MIDI Out
+slider14:pad_6_midi_in=-1<-1,127,1>-Pad 6 MIDI In
+slider15:pad_6_midi_out=-1<-1,127,1>-Pad 6 MIDI Out
+slider16:pad_7_midi_in=-1<-1,127,1>-Pad 7 MIDI In
+slider17:pad_7_midi_out=-1<-1,127,1>-Pad 7 MIDI Out
+slider18:pad_8_midi_in=-1<-1,127,1>-Pad 8 MIDI In
+slider19:pad_8_midi_out=-1<-1,127,1>-Pad 8 MIDI Out
+slider20:pad_9_midi_in=-1<-1,127,1>-Pad 9 MIDI In
+slider21:pad_9_midi_out=-1<-1,127,1>-Pad 9 MIDI Out
+slider22:pad_10_midi_in=-1<-1,127,1>-Pad 10 MIDI In
+slider23:pad_10_midi_out=-1<-1,127,1>-Pad 10 MIDI Out
+slider24:pad_11_midi_in=-1<-1,127,1>-Pad 11 MIDI In
+slider25:pad_11_midi_out=-1<-1,127,1>-Pad 11 MIDI Out
+slider26:pad_12_midi_in=-1<-1,127,1>-Pad 12 MIDI In
+slider27:pad_12_midi_out=-1<-1,127,1>-Pad 12 MIDI Out
+slider28:pad_13_midi_in=-1<-1,127,1>-Pad 13 MIDI In
+slider29:pad_13_midi_out=-1<-1,127,1>-Pad 13 MIDI Out
+slider30:pad_14_midi_in=-1<-1,127,1>-Pad 14 MIDI In
+slider31:pad_14_midi_out=-1<-1,127,1>-Pad 14 MIDI Out
+slider32:pad_15_midi_in=-1<-1,127,1>-Pad 15 MIDI In
+slider33:pad_15_midi_out=-1<-1,127,1>-Pad 15 MIDI Out
+slider34:pad_16_midi_in=-1<-1,127,1>-Pad 16 MIDI In
+slider35:pad_16_midi_out=-1<-1,127,1>-Pad 16 MIDI Out
+slider36:pad_17_midi_in=-1<-1,127,1>-Pad 17 MIDI In
+slider37:pad_17_midi_out=-1<-1,127,1>-Pad 17 MIDI Out
+slider38:pad_18_midi_in=-1<-1,127,1>-Pad 18 MIDI In
+slider39:pad_18_midi_out=-1<-1,127,1>-Pad 18 MIDI Out
+slider40:pad_19_midi_in=-1<-1,127,1>-Pad 19 MIDI In
+slider41:pad_19_midi_out=-1<-1,127,1>-Pad 19 MIDI Out
+slider42:pad_20_midi_in=-1<-1,127,1>-Pad 20 MIDI In
+slider43:pad_20_midi_out=-1<-1,127,1>-Pad 20 MIDI Out
+slider44:pad_21_midi_in=-1<-1,127,1>-Pad 21 MIDI In
+slider45:pad_21_midi_out=-1<-1,127,1>-Pad 21 MIDI Out
+slider46:pad_22_midi_in=-1<-1,127,1>-Pad 22 MIDI In
+slider47:pad_22_midi_out=-1<-1,127,1>-Pad 22 MIDI Out
+slider48:pad_23_midi_in=-1<-1,127,1>-Pad 23 MIDI In
+slider49:pad_23_midi_out=-1<-1,127,1>-Pad 23 MIDI Out
+slider50:pad_24_midi_in=-1<-1,127,1>-Pad 24 MIDI In
+slider51:pad_24_midi_out=-1<-1,127,1>-Pad 24 MIDI Out
+slider52:pad_25_midi_in=-1<-1,127,1>-Pad 25 MIDI In
+slider53:pad_25_midi_out=-1<-1,127,1>-Pad 25 MIDI Out
+slider54:pad_26_midi_in=-1<-1,127,1>-Pad 26 MIDI In
+slider55:pad_26_midi_out=-1<-1,127,1>-Pad 26 MIDI Out
+slider56:pad_27_midi_in=-1<-1,127,1>-Pad 27 MIDI In
+slider57:pad_27_midi_out=-1<-1,127,1>-Pad 27 MIDI Out
+slider58:pad_28_midi_in=-1<-1,127,1>-Pad 28 MIDI In
+slider59:pad_28_midi_out=-1<-1,127,1>-Pad 28 MIDI Out
+slider60:pad_29_midi_in=-1<-1,127,1>-Pad 29 MIDI In
+slider61:pad_29_midi_out=-1<-1,127,1>-Pad 29 MIDI Out
+slider62:pad_30_midi_in=-1<-1,127,1>-Pad 30 MIDI In
+slider63:pad_30_midi_out=-1<-1,127,1>-Pad 30 MIDI Out
+slider64:pad_31_midi_in=-1<-1,127,1>-Pad 31 MIDI In
+slider65:pad_31_midi_out=-1<-1,127,1>-Pad 31 MIDI Out
+slider66:pad_32_midi_in=-1<-1,127,1>-Pad 32 MIDI In
+slider67:pad_32_midi_out=-1<-1,127,1>-Pad 32 MIDI Out
+
+slider75:ignore_unmapped_notes=0<0,1,1{Pass through,Block}>Unmapped Pad Behaviour
+
+slider80:pad_count=8<1,32,1:log=8>Pad Count
+slider81:pads_per_row=4<1,31,1:log=8>Pads Per Row
+
+@init
+selected_pad = -1;
+midi_set_mode = 0;
+
+midi_in_slider_start_index = 4;
+midi_out_slider_start_index = 5;
+
+// Used to check for mouse clicks later on.
+last_mouse_down = 0;
+
+// Midi event statics.
+note_on_midi_event_min = $x90;
+note_on_midi_event_max = $x9F;
+note_off_midi_event_min = $x80;
+note_off_midi_event_max = $x8F;
+
+pad_pushed_array;
+
+// Returns true (1), if a given point lies within the specified rect.
+function is_in_rect(x, y, rect_x, rect_y, rect_w, rect_h)
+(
+  x >= rect_x && x <= (rect_x + rect_w) && y >= rect_y && y <= (rect_y + rect_h);
+);
+
+function get_pad_midi_in(pad_id)
+(
+  pad_id != -1 ? slider(midi_in_slider_start_index + (pad_id * 2)) : -1;
+);
+
+function get_pad_midi_out(pad_id)
+(
+  pad_id != -1 ? slider(midi_out_slider_start_index + (pad_id * 2)) : -1;
+);
+
+function set_pad_midi_in(pad_id, midi_note)
+(
+  slider_id = midi_in_slider_start_index + (pad_id * 2);
+  slider(slider_id) = midi_note;
+  sliderchange(-1);
+);
+
+function set_pad_midi_out(pad_id, midi_note)
+(
+  slider_id = midi_out_slider_start_index + (pad_id * 2);
+  slider(slider_id) = midi_note;
+  sliderchange(-1);
+);
+
+function midi_to_name(midi_number)
+(
+  octave = floor(midi_number / 12) - 1;
+  midi_number_in_octave = midi_number % 12;
+  note = strcpy_substr(#, "CCDDEFFGGAAB", (midi_number % 12), 1);
+  midi_number_in_octave == 1 || 
+  midi_number_in_octave == 3 ||
+  midi_number_in_octave == 6 ||
+  midi_number_in_octave == 8 ||
+  midi_number_in_octave == 10 ? note = strcat(note, "#");
+  sprintf(#, "%s%i", note, octave);
+);
+
+function get_midi_out_from_midi_in(midi_number)
+(
+  output_midi_number = -1;
+  l = 0;
+  loop(32,
+    midi_number == get_pad_midi_in(l) ? output_midi_number = get_pad_midi_out(l);
+    l += 1;
+  );
+  
+  output_midi_number == -1 ? midi_number : output_midi_number;
+);
+
+function get_pad_from_midi_in(midi_number)
+(
+  out_pad_id = -1;
+  
+  l = 0;
+  loop(32,
+    midi_number == get_pad_midi_in(l) ? out_pad_id = l;
+    l += 1;
+  );  
+  
+  out_pad_id;
+);
+
+function is_any_midi_note_on_event(midi_event)
+(
+  note_on_midi_event_min <= midi_event && midi_event <= note_on_midi_event_max;
+);
+
+function is_any_midi_note_off_event(midi_event)
+(
+  note_off_midi_event_min <= midi_event && midi_event <= note_off_midi_event_max;
+);
+
+
+@block
+while(midirecv(offset, msg1, msg2, msg3))
+(
+  current_note = msg2;
+  is_note_on_event = is_any_midi_note_on_event(msg1);
+  is_note_off_event = is_any_midi_note_off_event(msg1);
+  is_any_note_event = is_note_on_event || is_note_off_event;
+ 
+  is_any_note_event ?
+  ( 
+    channel = msg1 & 0xf;
+    is_note_on_pad_channel = pad_midi_channel == 0 || pad_midi_channel == channel + 1;
+    is_note_on_setting_channel = set_out_midi_channel == 0 || set_out_midi_channel == channel + 1;
+    
+    // Selection mode
+    selected_pad >= 0 && is_note_on_setting_channel ?
+    (
+      midi_set_mode == 1 ? set_pad_midi_in(selected_pad, current_note) : set_pad_midi_out(selected_pad, current_note);
+      selected_pad = -1;
+    )
+    // Playing mode
+    : is_note_on_pad_channel ?
+    (
+      pressed_pad_id = get_pad_from_midi_in(current_note);
+      output_note = get_pad_midi_out(pressed_pad_id);
+      
+      pressed_pad_id != -1 ? pad_pushed_array[pressed_pad_id] = is_note_on_event;
+      
+      output_note != -1 ?
+      (
+        output_note = get_pad_midi_out(pressed_pad_id);
+        output_note != -1 ? midisend(offset, msg1, output_note, msg3) : midisend(offset, msg1, msg2, msg3);
+      ) : !ignore_unmapped_notes ? 
+      (
+        midisend(offset, msg1, msg2, msg3);
+      );
+    );
+  ) 
+  // Handle all other MIDI events.
+  :
+  (
+    // Let all other midi events pass through.
+    midisend(offset, msg1, msg2, msg3);
+  );
+  
+  1;
+)
+
+@gfx
+// ------------------ STATICS ------------------ \\
+// The space between pads in pixels.
+pad_padding = 3;
+
+// The radius of each pad's rounded corners. (No longer needed?)
+pad_radius = 6;
+
+// The height of each pad's simulated 3D effect in pixels.
+pad_depth = 5;
+
+// The number of pads per column, in pads.
+pads_per_column = ceil(pad_count / pads_per_row);
+
+// The margin around the canvas in pixels.
+canvas_margin = pad_padding;
+
+// The width and height of the canvas in pixels.
+canvas_w = gfx_w - pad_padding * (pads_per_row - 1) - canvas_margin * 2;
+canvas_h = gfx_h - pad_padding * (pads_per_column - 1) - canvas_margin  *2;
+
+// The width and height of each pad in pixels.
+pad_width = canvas_w / pads_per_row;
+pad_height = canvas_h / pads_per_column;
+
+small_mode = pad_width < 80;
+micro_mode = small_mode && pad_width < 35;
+
+// Mouse and keyboard stuffies.
+is_left_mouse_down = mouse_cap & 1 > 0;
+is_left_mouse_clicked = is_left_mouse_down && !last_left_mouse_down;
+last_left_mouse_down = is_left_mouse_down;
+
+is_right_mouse_down = mouse_cap & 2 > 0;
+is_right_mouse_clicked = is_right_mouse_down && !last_right_mouse_down;
+last_right_mouse_down = is_right_mouse_down;
+
+is_ctrl_down = mouse_cap & 4 > 0; // Command (OSX)
+
+function set_rgba(r, g, b, a)
+(
+  gfx_r = r;
+  gfx_g = g;
+  gfx_b = b;
+  gfx_a = a;
+);
+
+function set_rgb(r, g, b)
+(
+  gfx_r = r;
+  gfx_g = g;
+  gfx_b = b;
+);
+
+function draw_highlight(x, y, width, height)
+(
+  gfx_a = 1;
+  gfx_rect(x, y, width, height, 0);
+  gfx_a = 0.25;
+  gfx_rect(x, y, width, height, 1);
+);
+
+function draw_set_overlay(x, y, width, height, text)
+(
+  set_rgba(0.8,0.8,0.8,1);
+  gfx_rect(x, y, width, height, 0);
+  set_rgba(0,0,0,0.66);
+  gfx_rect(x, y, width, height, 1);
+  
+  set_rgba(0,0,0,1);
+  gfx_x = x;
+  gfx_y = y;
+  gfx_drawstr(text, 1 | 4, x + width, y + height);
+  
+  set_rgba(1,1,1,1);
+  gfx_x = x;
+  gfx_y = y - 2;
+  gfx_drawstr(text, 1 | 4, x + width, y + height);
+);
+
+// ----------------- RENDERING------------------ \\
+gfx_clear = 0;
+gfx_getchar();
+
+pad_i = 0;
+loop(pad_count,
+  // Let's set up some variables for the current pad before doing some logic. :)
+  
+  // The X and Y positions of the current pad in grid-space (columns and rows).
+  pad_x_index = pad_i % pads_per_row;
+  pad_y_index = floor(pad_i / pads_per_row);
+  
+  // The X and Y positions of the current pad in pixels.
+  pad_x_pos = canvas_margin + pad_x_index * pad_width + pad_x_index * pad_padding;
+  pad_y_pos = canvas_margin + pad_y_index * pad_height + pad_y_index * pad_padding;;
+  
+  // True (1), if the mouse is currently hovering over this pad.
+  is_mouse_over = is_in_rect(mouse_x, mouse_y, pad_x_pos, pad_y_pos, pad_width, pad_height);
+  
+  // True (1), if the current pad is being pressed down at the moment (physically or via midi).
+  is_pressed = pad_pushed_array[pad_i];
+  
+  pad_midi_in = get_pad_midi_in(pad_i);
+  pad_midi_in_name = midi_to_name(pad_midi_in);
+  
+  pad_midi_out = get_pad_midi_out(pad_i);
+  pad_midi_out_name = midi_to_name(pad_midi_out);
+
+  // RENDER PADS ================================================================================== \\
+  // To achieve a 3D effect for the drum pads, we draw the shadow first and then the "actual" pad on top of that.
+  
+  // Let the pad's colour depend on its indeces, to give each pad a unique colour.
+  alpha_multiplier = pad_midi_out >= 0 && pad_midi_in >= 0 ? 1 : 0.25;
+  gfx_r = 1;
+  gfx_g = pad_x_index / (pads_per_row);
+  gfx_b = pad_y_index / (pads_per_column - 1);
+  
+  // Draw the shadow.
+  gfx_a = 0.5 * alpha_multiplier;
+  gfx_rect(pad_x_pos, pad_y_pos, pad_width, pad_height);
+  
+  // Draw the actual pad.
+  gfx_a = is_pressed ? 0.66 : 1;
+  gfx_a *= alpha_multiplier;
+  gfx_rect(pad_x_pos, pad_y_pos, pad_width, pad_height - (is_pressed ? pad_depth * 0.5 : pad_depth));
+  
+  // RENDER PAD TEXT ============================================================================== \\
+  pad_height <= 35 ?
+  (
+    midi_in_text = "";
+    midi_out_text = "";
+  )
+  : micro_mode ?
+  (
+    midi_in_text = pad_midi_in >= 0 ? "" : "-";
+    midi_out_text = pad_midi_out >= 0 ? "" : "-";
+  )
+  : small_mode ?
+  (
+    midi_in_text = pad_midi_in >= 0 ? midi_to_name(pad_midi_in) : "-";
+    midi_out_text = pad_midi_out >= 0 ? midi_to_name(pad_midi_out) : "-";
+  )
+  :
+  (
+    midi_in_text = pad_midi_in >= 0 ? sprintf(#, "IN: %s", midi_to_name(pad_midi_in), pad_midi_in) : "IN: -";
+    midi_out_text = pad_midi_out >= 0 ? sprintf(#, "OUT: %s", midi_to_name(pad_midi_out), pad_midi_out) : "OUT: -";
+  );
+  
+  // Out
+  set_rgba(0,0,0,1);
+  gfx_x = pad_x_pos;
+  gfx_y = pad_y_pos;
+  gfx_drawstr(midi_out_text, 1 | 4, pad_x_pos + pad_width, pad_y_pos + pad_height * 0.5);
+  
+  set_rgba(1,1,1,1);
+  gfx_x = pad_x_pos;
+  gfx_y = pad_y_pos - 2;
+  gfx_drawstr(midi_out_text, 1 | 4, pad_x_pos + pad_width, pad_y_pos + pad_height * 0.5);
+  
+  // In
+  set_rgba(0,0,0,0.125);
+  gfx_x = pad_x_pos;
+  gfx_y = pad_y_pos + pad_height * 0.5;
+  gfx_drawstr(midi_in_text, 1 | 4, pad_x_pos + pad_width, pad_y_pos + pad_height);
+  
+  set_rgba(1,1,1,0.5);
+  gfx_x = pad_x_pos;
+  gfx_y = pad_y_pos + pad_height * 0.5 - 2;
+  gfx_drawstr(midi_in_text, 1 | 4, pad_x_pos + pad_width, pad_y_pos + pad_height);
+
+  // RENDER HIGHLIGHS ============================================================================= \\
+  // Hover highlight
+  is_mouse_over ? 
+  (
+    set_rgb(1,1,1);
+    draw_highlight(pad_x_pos, pad_y_pos, pad_width, pad_height);
+  );
+  
+  // Selection logic
+  // Select midi in
+  is_mouse_over && is_left_mouse_clicked && !is_ctrl_down ?
+  (
+    midi_set_mode = 0;
+    selected_pad != pad_i ? selected_pad = pad_i : selected_pad = -1;
+  );
+  
+  // Select midi out
+  is_mouse_over && is_right_mouse_clicked && !is_ctrl_down ?
+  (
+    midi_set_mode = 1;
+    selected_pad != pad_i ? selected_pad = pad_i : selected_pad = -1;
+  );
+  
+  // Reset
+  is_mouse_over && is_left_mouse_clicked && is_ctrl_down ?
+  (
+    set_pad_midi_out(pad_i, -1);
+  )
+  : is_mouse_over && is_right_mouse_clicked && is_ctrl_down ?
+  (
+    set_pad_midi_in(pad_i, -1);
+  );
+  
+  // Selection
+  pad_i == selected_pad ?
+  (
+    small_mode ?
+      set_mode_text = midi_set_mode == 1 ? "i" : "o"
+      : set_mode_text = midi_set_mode == 1 ? "SET IN..." : "SET OUT...";
+      
+    draw_set_overlay(pad_x_pos, pad_y_pos, pad_width, pad_height, set_mode_text);
+  );
+  
+  pad_i += 1;
+);
