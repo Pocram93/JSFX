@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="Pocram JSFX" commit="178d81968bb0797ea57c54e6d107d27fafc2a746">
+<index version="1" name="Pocram JSFX" commit="e2f2979c5723712a2d321c63b24b2c7f006ea2d3">
   <category name="MIDI">
     <reapack name="drum-pad-remap.jsfx" type="effect" desc="Pocram Drum Pad Mapper">
       <metadata>
@@ -54,6 +54,23 @@
         <source>https://github.com/Pocram93/JSFX/raw/178d81968bb0797ea57c54e6d107d27fafc2a746/MIDI/midi-lfo-trigger.jsfx</source>
       </version>
     </reapack>
+    <reapack name="single-octave-midi-keyboard.jsfx" type="effect" desc="Pocram Single Octave MIDI Keyboard">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 About\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 TODO describe me pls!!!1\par}
+}
+]]></description>
+        <link rel="website">https://github.com/Pocram93/JSFX</link>
+      </metadata>
+      <version name="0.1" author="Marco Picker" time="2025-07-14T16:56:06Z">
+        <changelog><![CDATA[Initial release.]]></changelog>
+        <source>https://github.com/Pocram93/JSFX/raw/032582f297f512f6a19f21d6132c45b310d9db2c/MIDI/single-octave-midi-keyboard.jsfx</source>
+      </version>
+    </reapack>
   </category>
   <category name="Utility">
     <reapack name="parameter-remap.jsfx" type="effect" desc="Pocram Parameter Remap">
@@ -92,14 +109,14 @@
     </reapack>
   </category>
   <metadata>
-    <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+    <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
-{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs36 Pocram JSFX Repository\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 Pocram JSFX Repository\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 {\cf1 [image: https://github.com/Pocram93/JSFX/actions/workflows/check.yml/badge.svg]\cf0} {\cf1 [image: https://github.com/Pocram93/JSFX/actions/workflows/deploy.yml/badge.svg]\cf0}\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 A collection of JS effects for REAPER, ready to be imported via ReaPack.\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 Installation with ReaPack\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Installation with ReaPack\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 Copy and paste this URL in Extensions > ReaPack > Import a repository:\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \f1 https://github.com/Pocram93/JSFX/raw/master/index.xml\par}
 }
