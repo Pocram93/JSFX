@@ -3,43 +3,49 @@ About:
   # About
   *[NAME]* is a JSFX plugin that transforms your computer keyboard into a MIDI keyboard that mimics the way you play music in *Guild Wars 2*.
 Link: https://github.com/Pocram93/JSFX
-Version: 0.2
+Version: 0.3b
 Author: Marco Picker
 Changelog:
   Initial release.
 
-slider1:note_1_key_code=49<-1,255,1>Note 1 Key Code
-slider2:note_1_sharp_key_code=-1<-1,255,1>Note 1# Key Code
-slider3:note_2_key_code=50<-1,255,1>Note 2 Key Code
-slider4:note_2_sharp_key_code=-1<-1,255,1>Note 2# Key Code
-slider5:note_3_key_code=51<-1,255,1>Note 3 Key Code
-slider6:note_4_key_code=52<-1,255,1>Note 4 Key Code
-slider7:note_4_sharp_key_code=-1<-1,255,1>Note 4# Key Code
-slider8:note_5_key_code=53<-1,255,1>Note 5 Key Code
-slider9:note_5_sharp_key_code=-1<-1,255,1>Note 5# Key Code
-slider10:note_6_key_code=54<-1,255,1>Note 6 Key Code
-slider11:note_6_sharp_key_code=-1<-1,255,1>Note 6# Key Code
-slider12:note_7_key_code=55<-1,255,1>Note 7 Key Code
-slider13:note_8_key_code=56<-1,255,1>Note 8 Key Code
+slider1:note_1_key_code=49<-1,255,1>-Note 1 Key Code
+slider2:note_1_sharp_key_code=-1<-1,255,1>-Note 1# Key Code
+slider3:note_2_key_code=50<-1,255,1>-Note 2 Key Code
+slider4:note_2_sharp_key_code=-1<-1,255,1>-Note 2# Key Code
+slider5:note_3_key_code=51<-1,255,1>-Note 3 Key Code
+slider6:note_4_key_code=52<-1,255,1>-Note 4 Key Code
+slider7:note_4_sharp_key_code=-1<-1,255,1>-Note 4# Key Code
+slider8:note_5_key_code=53<-1,255,1>-Note 5 Key Code
+slider9:note_5_sharp_key_code=-1<-1,255,1>-Note 5# Key Code
+slider10:note_6_key_code=54<-1,255,1>-Note 6 Key Code
+slider11:note_6_sharp_key_code=-1<-1,255,1>-Note 6# Key Code
+slider12:note_7_key_code=55<-1,255,1>-Note 7 Key Code
+slider13:note_8_key_code=56<-1,255,1>-Note 8 Key Code
 
-slider14:octave_down_key_code=57<-1,255,1>Octave Down Key Code
-slider15:octave_up_key_code=48<-1,255,1>Octave Up Key Code
+slider14:octave_down_key_code=57<-1,255,1>-Octave Down Key Code
+slider15:octave_up_key_code=48<-1,255,1>-Octave Up Key Code
+
+slider17:pedal_key_code=-1<-1,255,1>-Sustain Pedal Key Code
 
 slider27:current_octave_index=0<-5,5,1>Curent Octave
 slider28:min_octave=-1<-5,5,1>Min Octave
 slider29:max_octave=1<-5,5,1>Max Octave
 
-slider100:DEBUG_last_key=-1<-1,255,1>Last Pressed Key
+slider31:velocity=63<0,127,1>Velocity
+
+slider100:DEBUG_last_key=-1<-1,255,1>-Last Pressed Key
 
 @init
-octave_offset = 0;
+selected_slider = -1;
 
+octave_offset = 0;
 octave_down_slider_id = 14;
 octave_up_slider_id = 15;
 
 // Midi event enum
 midi_event_note_on = $x90;
 midi_event_note_off = $x80;
+midi_cc_status_change = $xB0;
 
 // Key state enum
 key_state_pressed = 3;
@@ -47,7 +53,7 @@ key_state_held = 2;
 key_state_lifted = 1;
 key_state_not_pressed = 0;
 
-note_map = 15;
+note_map = 64;
 note_map[1] = 60;
 note_map[2] = 61;
 note_map[3] = 62;
@@ -62,8 +68,33 @@ note_map[11] = 70;
 note_map[12] = 71;
 note_map[13] = 72;
 
-key_states_array;
+pressed_keys = 128;
+previously_pressed_keys = 192;
 
+function is_key_down(slider)
+(
+    pressed_keys[slider] == 1;
+);
+
+function is_key_pressed(slider)
+(
+    pressed_keys[slider] == 1 && previously_pressed_keys[slider] == 0;
+);
+
+function is_key_released(slider)
+(
+    pressed_keys[slider] == 0 && previously_pressed_keys[slider] == 1;
+);
+
+function set_key_held(slider)
+(
+    pressed_keys[slider] = 1 && previously_pressed_keys[slider] = 1;
+);
+
+function set_key_unpressed(slider)
+(
+    pressed_keys[slider] = 0 && previously_pressed_keys[slider] = 0;
+);
 
 @block
 // ------------------ FUNCTIONS ------------------ \\
@@ -71,16 +102,16 @@ function update_current_octave()
 (
     previous_index = current_octave_index;
 
-    key_states_array[octave_up_slider_id] == key_state_pressed ? 
+    is_key_pressed(octave_up_slider_id) ? 
     (
         current_octave_index = current_octave_index + 1;
-        key_states_array[octave_up_slider_id] = key_state_lifted;
+        set_key_held(octave_up_slider_id);
     );
 
-    key_states_array[octave_down_slider_id] == key_state_pressed ? 
+    is_key_pressed(octave_down_slider_id) ? 
     (
         current_octave_index = current_octave_index - 1;
-        key_states_array[octave_down_slider_id] = key_state_lifted;
+        set_key_held(octave_down_slider_id);
     );
 
     // Limit octave index
@@ -99,16 +130,16 @@ function send_note_events()
         note_number = note_map[i] + octave_offset;
 
         // Key pressed
-        key_states_array[i] == key_state_pressed ?
+        is_key_pressed(i) ?
         (
-            midisend(0, midi_event_note_on, note_number, 127);
-            key_states_array[i] = key_state_held;
+            midisend(0, midi_event_note_on, note_number, velocity);
+            set_key_held(i);
         );
 
-        key_states_array[i] == key_state_lifted ?
+        is_key_released(i) ?
         (
-            midisend(0, midi_event_note_off, note_number, 127);
-            key_states_array[i] = key_state_not_pressed;
+            midisend(0, midi_event_note_off, note_number, velocity);
+            set_key_unpressed(i);
         );
 
         i = i + 1;
@@ -124,10 +155,25 @@ function send_midi_off_for_octave(octave)
         // Is key bound?
         slider(i) > 0 ?
         (
-            midisend(0, midi_event_note_off, note_number, 127);
+            midisend(0, midi_event_note_off, note_number, velocity);
         );
 
         i = i + 1;
+    );
+);
+
+function send_sustain_event()
+(
+    pedal_index = 17;
+    is_key_pressed(pedal_index) ?
+    (
+        set_key_held(pedal_index);
+        midisend(0, midi_cc_status_change, 64, 127);
+    )
+    : is_key_released(pedal_index) ?
+    (
+        set_key_unpressed(pedal_index);
+        midisend(0, midi_cc_status_change, 64, 0);
     );
 );
 
@@ -137,34 +183,62 @@ octave_changed = update_current_octave();
 octave_changed ? send_midi_off_for_octave(previous_octave);
 
 send_note_events();
+send_sustain_event();
 
 @gfx
 // ------------------ STATICS ------------------ \\
+pressed_char = gfx_getchar();
+
+// The space between white keys in pixels.
+key_padding = 3;
+
+white_key_count = 8;
+
+// The height of each key's simulated 3D effect in pixels.
+key_depth = 5;
+
+// The margin around the canvas in pixels.
+canvas_margin = key_depth;
+
+// The width and height of the canvas in pixels.
+canvas_w = gfx_w - canvas_margin * 2;
+canvas_h = gfx_h - canvas_margin * 2;
+
+piano_canvas_w = canvas_w * 0.75;
+piano_canvas_h = canvas_h;
+
+piano_canvas_x = canvas_margin;
+piano_canvas_y = canvas_margin;
+
+right_canvas_w = canvas_w - piano_canvas_w - canvas_margin;
+right_canvas_h = canvas_h;
+
+right_canvas_x = piano_canvas_x + piano_canvas_w + canvas_margin;
+right_canvas_y = piano_canvas_y;
+
+// The width and height of each white key in pixels.
+white_key_width = piano_canvas_w / white_key_count - key_padding;
+white_key_height = piano_canvas_h;
+
+// Mouse and keyboard stuffies.
+is_left_mouse_down = mouse_cap & 1 > 0;
+is_left_mouse_clicked = is_left_mouse_down && !last_left_mouse_down;
+last_left_mouse_down = is_left_mouse_down;
+
+is_right_mouse_down = mouse_cap & 2 > 0;
+is_right_mouse_clicked = is_right_mouse_down && !last_right_mouse_down;
+last_right_mouse_down = is_right_mouse_down;
+
+is_ctrl_down = mouse_cap & 4 > 0; // Command (OSX)
+
 function update_key_state(slider_index)
 (
     slider(slider_index) > 0 ?
     (
         is_key_down = gfx_getchar(slider(slider_index));
-        previous_state = key_states_array[slider_index];
-        
-        // Key down
-        // Keys can only be pressed when they are not currently being pressed!
-        is_key_down && previous_state == key_state_not_pressed ? 
-        (
-            key_states_array[slider_index] = key_state_pressed;
-        );
 
-        // Key lifted
-        is_key_down < 1 && (previous_state == key_state_pressed || previous_state == key_state_held) ? 
-        (
-            key_states_array[slider_index] = key_state_lifted;
-        );
-
-        // Key not pressed
-        is_key_down < 1 && (previous_state == key_state_lifted) ? 
-        (
-            key_states_array[slider_index] = key_state_not_pressed;
-        );
+        previously_pressed_keys[slider_index] = pressed_keys[slider_index];
+        pressed_keys[slider_index] = is_key_down;
     );
 );
 
@@ -192,10 +266,118 @@ function set_rgb(r, g, b)
   gfx_b = b;
 );
 
+// Returns true (1), if a given point lies within the specified rect.
+function is_in_rect(x, y, rect_x, rect_y, rect_w, rect_h)
+(
+    x >= rect_x && x <= (rect_x + rect_w) && y >= rect_y && y <= (rect_y + rect_h);
+);
+
+function draw_highlight(x, y, width, height, filled)
+(
+    gfx_a = 1;
+    gfx_rect(x, y, width, height, 0);
+    
+    filled ?
+    (
+        gfx_a = 0.25;
+        gfx_rect(x, y, width, height, 1);
+    );
+);
+
+function render_key(x, y, width, height, r, g, b, slider)
+(
+    // True (1), if the mouse is currently hovering over this key.
+    is_mouse_over = is_in_rect(mouse_x, mouse_y, x, y, width, height);
+
+    is_pressed = is_key_down(slider);
+    is_selected = selected_slider == slider;
+
+    // Draw shadow
+    set_rgba(r * 0.5, g * 0.5, b * 0.5, 1);
+    gfx_rect(x, y, width, height);
+
+    // Draw actual key
+    is_pressed == 0 ? 
+    (
+        set_rgba(r, g, b, 1);
+        gfx_rect(x, y, width, height - key_depth);
+    );
+
+    // Hover highlight
+    is_mouse_over ? 
+    (
+        set_rgb(1,1,0);
+        draw_highlight(x, y, width, height, 0);
+    );
+    
+    is_selected ?
+    (
+        set_rgb(1,1,0);
+        draw_highlight(x, y, width, height, 1);
+
+        pressed_char > 0 ?
+        (
+            slider(slider) = pressed_char;
+            is_selected = 0;
+            selected_slider = -1;
+        );
+    );
+
+    is_mouse_over && is_left_mouse_clicked ?
+    (
+        selected_slider = is_selected ? -1 : slider;
+    );
+);
+
+function render_white_key(index, slider)
+(
+    // The X and Y positions of the current pad in pixels.
+    key_x_pos = piano_canvas_x + index * white_key_width + index * key_padding;
+    key_y_pos = piano_canvas_y;
+
+    render_key(key_x_pos, key_y_pos, white_key_width, white_key_height, 0.95, 0.95, 0.95, slider);
+);
+
+function render_black_key(index, slider)
+(
+    // The X and Y positions of the current pad in pixels.
+    key_x_pos = piano_canvas_x + index * white_key_width + index * key_padding + white_key_width * 0.75;
+    key_y_pos = piano_canvas_y;
+
+    render_key(key_x_pos, key_y_pos, white_key_width * 0.5 + key_padding, white_key_height * 0.66, 0.2, 0.2, 0.2, slider);
+);
+
 // ----------------- RENDERING------------------ \\
 gfx_clear = 0;
 
 update_playing_key_states();
+update_key_state(17);
 
-char = gfx_getchar();
-char > 0 ? DEBUG_last_key = char;
+pressed_char > 0 ? DEBUG_last_key = pressed_char;
+
+render_white_key(0, 1);
+render_white_key(1, 3);
+render_white_key(2, 5);
+render_white_key(3, 6);
+render_white_key(4, 8);
+render_white_key(5, 10);
+render_white_key(6, 12);
+render_white_key(7, 13);
+
+render_black_key(0, 2);
+render_black_key(1, 4);
+render_black_key(3, 7);
+render_black_key(4, 9);
+render_black_key(5, 11);
+
+octave_button_height = right_canvas_h * 0.33;
+
+render_key(right_canvas_x, right_canvas_y, right_canvas_w, octave_button_height - key_padding, 0.95, 0.95, 0.95, 15);
+render_key(right_canvas_x, right_canvas_y + octave_button_height, right_canvas_w, octave_button_height - key_padding, 0.95, 0.95, 0.95, 14);
+render_key(right_canvas_x, right_canvas_y + octave_button_height * 2, right_canvas_w, octave_button_height, 0.95, 0.95, 0.95, 17);
+
+set_rgba(1,0,0,1);
+//gfx_rect(right_canvas_x, right_canvas_y, right_canvas_w, right_canvas_h, 0);
+
+set_rgba(0,0,1,1);
+//gfx_rect(canvas_margin, canvas_margin, piano_canvas_w, piano_canvas_h, 0);
